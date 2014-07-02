@@ -11,13 +11,14 @@ object Ydirect extends Build {
   lazy val projectSettings: Seq[Setting[_]] = Seq(
     name := "yandex-direct",
     organization := "com.github.krispo",
-    scalaVersion := "2.10.0",
+    scalaVersion := "2.11.1",
     version := "0.1-SNAPSHOT")
 
   lazy val dependencySettings: Seq[Setting[_]] = Seq(
     libraryDependencies ++= Seq(
-      "play" % "play_2.10" % "2.1.0",
-      "org.specs2" % "specs2_2.10" % "1.14" % "test"))
+      "com.typesafe.play" %% "play-json" % "2.3.1",
+      "com.typesafe.play" %% "play-ws" % "2.3.1",
+      "org.specs2" %% "specs2" % "2.3.12" % "test"))
 
   lazy val resolversSettings: Seq[Setting[_]] = Seq(
     resolvers ++= Seq(

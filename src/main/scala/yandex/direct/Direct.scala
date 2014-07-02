@@ -9,6 +9,9 @@ import play.api.libs.concurrent.Execution.Implicits._
 import java.util.Date
 
 import play.api.libs.ws._
+import play.api.libs.ws.ning.NingWSClient
+import play.api.libs.ws.ning.NingAsyncHttpClientConfigBuilder
+import play.api.libs.ws.DefaultWSClientConfig
 
 case class Direct(
   val login: String = _LOGIN,
@@ -16,6 +19,9 @@ case class Direct(
   val application_id: String = _APPLICATION_ID,
   val locale: String = _LOCALE,
   val url: String = _HOST) {
+
+  val builder = new NingAsyncHttpClientConfigBuilder( new DefaultWSClientConfig() )
+  implicit val client = new NingWSClient(builder.build())
 
   /* 
    * Generate post request to Yandex Direct API as JSON String
@@ -34,7 +40,7 @@ case class Direct(
           "method" -> method,
           "param" -> param))
 
-    val futureResponse = WS.url(url).post[JsValue](jsData)
+    val futureResponse = WS.clientUrl(url).post[JsValue](jsData)
 
     Await.result(futureResponse, Duration.Inf).json
   }
@@ -53,7 +59,7 @@ case class Direct(
           "method" -> method,
           "param" -> param))
 
-    val futureResponse = WS.url(url).post[JsValue](jsData)
+    val futureResponse = WS.clientUrl(url).post[JsValue](jsData)
 
     Await.result(futureResponse, Duration.Inf).json
   }
@@ -254,7 +260,7 @@ case class Direct(
    * Download XML report
    */
   def getXMLreport(reportUrl: String): xml.Elem = { //won't require login and token 
-    val futureResponse = WS.url(reportUrl).get()
+    val futureResponse = WS.clientUrl(reportUrl).get()
 
     Await.result(futureResponse, Duration.Inf).xml
   }

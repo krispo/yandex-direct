@@ -74,7 +74,7 @@ class DirectSpec extends Specification with AllExpectations {
       l.map(a => (a \ "CampaignID").as[Int]) must_== (List(5728507))
 
       val phl = l.head \ "Phrases" \\ "PhraseID" map (_.as[Int])
-      phl.length must_== (56)
+      phl.length must_== (51)
     }
   }
 }

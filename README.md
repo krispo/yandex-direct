@@ -17,7 +17,7 @@ For SBT, add these lines to Your SBT project definition:
 ```scala
 libraryDependencies ++= Seq(
 				// other dependencies here
-				"com.github.krispo" % "yandex-direct_2.10" % "0.1-SNAPSHOT"
+				"com.github.krispo" %% "yandex-direct" % "0.1-SNAPSHOT"
 				)				 
 ```
 and
